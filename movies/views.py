@@ -1,7 +1,9 @@
-import requests, json
-
 from django.db.models import Q
 from django.shortcuts import render
+from django.db.models import Max
+
+import requests, json
+import random
 
 from movies.models import *
 
@@ -46,6 +48,15 @@ def get_movies(search, sort, movie_format_filter, order_by):
         movie_list = Movie.objects.filter(formats__name=movie_format_filter).order_by(order_by)
 
     return movie_list, search, sort, sort_arrow
+
+
+def get_random_movie():
+    max_id = Movie.objects.all().aggregate(max_id=Max("id"))["max_id"]
+    while True:
+        pk = random.randint(1, max_id)
+        random_movie = Movie.objects.filter(pk=pk).first()
+        if random_movie:
+            return random_movie
 
 
 def home(request):
@@ -158,4 +169,16 @@ def years(request):
                                                "breadcrumb": breadcrumb,
                                                "sort": sort,
                                                "sort_arrow": sort_arrow,
+                                               "sort_label": sort_label})
+
+
+def rand_movie(request):
+    sort = request.GET.get("sort")
+    movie_list = [get_random_movie()]
+    breadcrumb = ""
+    sort_label = "Alphabetical"
+
+    return render(request, "movie_grid.html", {"movie_list": movie_list,
+                                               "breadcrumb": breadcrumb,
+                                               "sort": sort,
                                                "sort_label": sort_label})

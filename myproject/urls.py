@@ -12,4 +12,5 @@ urlpatterns = [
     path("plex/", views.filter_plex, name="filter_plex"),
     path("genres/", views.genres, name="genres"),
     path("years/", views.years, name="years"),
+    path("rand_movie/", views.rand_movie, name="rand_movie"),
 ]
