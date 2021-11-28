@@ -2,10 +2,26 @@
 {% block content %}
 {%load static%}
 <div class="row">
-  <div class="col-sm-4" style="background-color:gray;">.col-sm-4</div>
+  <div class="col-sm-4" style="background-color:gray;">
+    <img src="https://image.tmdb.org/t/p/w500{{poster_path}}"
+             class="card-img-top"
+             alt="poster for {{title}} ({{year}})">
+  </div>
   <div class="col-sm-8">
     <h1>{{title}} ({{year}})</h1>
     <h4><i>{{tagline}}</i></h4>
+    <h6>Runtime: {{runtime}} min</h6>
+    <p>{{overview}}</p>
+    <p>
+    {%for format in movie.formats.all%}
+      <img src="https://movies.leoandjen.com/static/img/{{format.name}}.png" style="width:48px;">
+    {%endfor%}
+    </p>
+    <p>
+    {%for genre in genres_list%}
+      <button type="button" class="btn btn-info">{{genre}}</button>
+    {%endfor%}
+    </p>
   </div>
 </div>
 
