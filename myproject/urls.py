@@ -13,4 +13,5 @@ urlpatterns = [
     path("genres/", views.genres, name="genres"),
     path("years/", views.years, name="years"),
     path("rand_movie/", views.rand_movie, name="rand_movie"),
+    path("movie/<int:tmdb_id>", views.ind_movie, name="ind_movie"),
 ]

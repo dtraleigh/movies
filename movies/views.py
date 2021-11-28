@@ -182,3 +182,17 @@ def rand_movie(request):
                                                "breadcrumb": breadcrumb,
                                                "sort": sort,
                                                "sort_label": sort_label})
+
+
+def ind_movie(request, tmdb_id):
+    movie_info = query_tmdb(tmdb_id)
+
+    if movie_info:
+        title = movie_info["title"]
+        year = movie_info["release_date"][:4]
+        tagline = movie_info["tagline"]
+
+    return render(request, "movie.html", {"tmdb_id": tmdb_id,
+                                          "title": title,
+                                          "year": year,
+                                          "tagline": tagline})

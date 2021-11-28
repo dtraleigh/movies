@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block content %}
+{%load static%}
+<div class="row">
+  <div class="col-sm-4" style="background-color:gray;">.col-sm-4</div>
+  <div class="col-sm-8">
+    <h1>{{title}} ({{year}})</h1>
+    <h4><i>{{tagline}}</i></h4>
+  </div>
+</div>
+
+{%endblock%}
