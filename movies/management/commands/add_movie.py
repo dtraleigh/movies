@@ -1,5 +1,6 @@
 import sys
 
+from argparse import RawTextHelpFormatter
 from django.core.management.base import BaseCommand
 
 from movies.models import *
@@ -7,15 +8,13 @@ from movies.management.commands.functions import *
 
 
 class Command(BaseCommand):
-    help = "Adds a movie using the imdb_id.\n " \
-           "Example: add_movie tt1217209 -f blu_ray,g_play,ma,amz\n" \
-           "All options: vudu, plex, ma, hddvd, g_play, dvd, blu_ray, 4k, 3d, amz, apple_tv"
+    help = "Example: add_movie tt1217209 -f 4k"
 
     def add_arguments(self, parser):
         parser.add_argument("imdb_id", type=str, help="IMDB ID of movie to add")
 
         # Optional argument
-        parser.add_argument("-f", "--format", type=str, help="Add a list of formats", )
+        parser.add_argument("-f", "--format", type=str, help="Add a list of formats. All options: vudu, plex, ma, hddvd, g_play, dvd, blu_ray, 4k, 3d, amz, apple_tv", )
         parser.add_argument("-t", "--tv_movie", action='store_true', help="Movie is from tv_results instead", )
 
     def handle(self, *args, **options):
