@@ -2,6 +2,13 @@
 {% block content %}
 {%load static%}
 <div class="row">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+      </ol>
+    </nav>
+</div>
+<div class="row">
   <div class="col-sm-4" style="background-color:gray;">
     <img src="https://image.tmdb.org/t/p/w500{{poster_path}}"
              class="card-img-top"
