@@ -18,6 +18,9 @@
     <h1>{{title}} ({{year}})</h1>
     <h4><i>{{tagline}}</i></h4>
     <h6>Runtime: {{runtime}} min</h6>
+    {%if rating%}
+      <h6>Letterboxd: {{rating}}</h6>
+    {%endif%}
     <p>{{overview}}</p>
     <p>
     {%for format in movie.formats.all%}

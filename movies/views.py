@@ -2,11 +2,11 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.db.models import Max
 
-import json
 import random
 
 from movies.management.commands.functions import *
 from movies.models import *
+from movies.functions import *
 
 
 def get_sort_character(sort_order):
@@ -177,14 +177,30 @@ def ind_movie(request, tmdb_id):
     movie_info = query_tmdb(tmdb_id)
     movie = Movie.objects.get(themoviedb_id=tmdb_id)
 
-    if movie_info:
-        title = movie_info["title"]
-        year = movie_info["release_date"][:4]
-        tagline = movie_info["tagline"]
-        poster_path = movie_info["poster_path"]
-        overview = movie_info["overview"]
-        runtime = str(movie_info["runtime"])
-        genres_list = [g["name"] for g in movie_info["genres"]]
+    if movie.letterboxd_url_slug:
+        letterboxd_page = get_page_content(f"https://letterboxd.com/film/{movie.letterboxd_url_slug}")
+        letterboxd_page_soup = BeautifulSoup(letterboxd_page.content, "html.parser")
+        letterboxd_page_avg_rating = get_letterboxd_page_avg_rating(letterboxd_page_soup)
+    else:
+        letterboxd_page_avg_rating = None
+
+    try:
+        if movie_info["id"]:
+            title = movie_info["title"]
+            year = movie_info["release_date"][:4]
+            tagline = movie_info["tagline"]
+            poster_path = movie_info["poster_path"]
+            overview = movie_info["overview"]
+            runtime = str(movie_info["runtime"])
+            genres_list = [g["name"] for g in movie_info["genres"]]
+    except KeyError:
+        title = movie.title
+        year = movie.primary_release_year
+        tagline = None
+        poster_path = movie.poster_path
+        overview = None
+        runtime = None
+        genres_list = genres
 
     return render(request, "movie.html", {"tmdb_id": tmdb_id,
                                           "title": title,
@@ -194,4 +210,5 @@ def ind_movie(request, tmdb_id):
                                           "overview": overview,
                                           "runtime": runtime,
                                           "movie": movie,
-                                          "genres_list": genres_list})
+                                          "genres_list": genres_list,
+                                          "rating": letterboxd_page_avg_rating})
