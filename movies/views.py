@@ -16,7 +16,7 @@ def get_sort_character(sort_order):
 
 
 def get_movies(search, sort, movie_format_filter, order_by):
-    # Sort
+    """Sort"""
     if sort == "desc":
         sort = "asc"
         order_by = "-" + order_by

@@ -6,8 +6,10 @@ from movies.models import *
 def query_tmdb_by_imdb_id(imdb_id):
     api_user = APIUser.objects.get(name="Leo")
 
-    url = "https://api.themoviedb.org/3/find/" + \
-          str(imdb_id) + "?api_key=" + api_user.api_key + "&language=en-US&external_source=imdb_id"
+    url = (
+        f"https://api.themoviedb.org/3/find/{str(imdb_id)}"
+        f"?api_key={api_user.api_key}&language=en-US&external_source=imdb_id"
+    )
 
     payload = {}
     headers = {}
@@ -26,7 +28,7 @@ def get_imdb_id_from_xml(id, root_discs):
 
 def get_imdb_id(themoviedb_id):
     api_user = APIUser.objects.get(name="Leo")
-    url = "https://api.themoviedb.org/3/movie/" + str(themoviedb_id) + "?api_key=" + api_user.api_key
+    url = f"https://api.themoviedb.org/3/movie/{str(themoviedb_id)}?api_key={api_user.api_key}"
 
     payload = {}
     headers = {}
@@ -39,9 +41,11 @@ def get_imdb_id(themoviedb_id):
 
 def search_tmdb(title, year):
     api_user = APIUser.objects.get(name="Leo")
-    url = "https://api.themoviedb.org/3/search/movie" + \
-            "?api_key=" + api_user.api_key + "&language=en-US&query=" + title + \
-          "&page=1&include_adult=false&primary_release_year=" + str(year)
+    url = (
+        f"https://api.themoviedb.org/3/search/movie"
+        f"?api_key={api_user.api_key}&language=en-US"
+        f"&query={title}&page=1&include_adult=false&primary_release_year={str(year)}"
+    )
 
     payload = {}
     headers = {}
@@ -54,8 +58,7 @@ def search_tmdb(title, year):
 def query_tmdb(tmdb_id):
     api_user = APIUser.objects.get(name="Leo")
 
-    url = "https://api.themoviedb.org/3/movie/" + \
-          str(tmdb_id) + "?api_key=" + api_user.api_key
+    url = f"https://api.themoviedb.org/3/movie/{str(tmdb_id)}?api_key={api_user.api_key}"
 
     payload = {}
     headers = {}
