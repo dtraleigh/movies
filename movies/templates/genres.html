@@ -22,7 +22,7 @@
     {%if movie.0 == genre%}
     <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-4">
       <div class="card">
-        <a href="/movie/{{movie.themoviedb_id}}">
+        <a href="/movie/{{movie.1.themoviedb_id}}">
         <img src="https://image.tmdb.org/t/p/w500{{movie.1.poster_path}}"
              class="card-img-top"
              alt="poster for {{movie.1.title}} ({{movie.1.primary_release_year}})">
