@@ -1,51 +1,9 @@
 from django.db.models import Q
 from django.shortcuts import render
-from django.db.models import Max
-
-import random
 
 from movies.management.commands.functions import *
-from movies.models import *
+from movies.models import Movie
 from movies.functions import *
-
-
-def get_sort_character(sort_order):
-    if sort_order == "desc":
-        return "⌄"
-    return "⌃"
-
-
-def get_movies(search, sort, movie_format_filter, order_by):
-    """Sort"""
-    if sort == "desc":
-        sort = "asc"
-        order_by = "-" + order_by
-        sort_arrow = get_sort_character("desc")
-    else:
-        sort = "desc"
-        sort_arrow = get_sort_character("asc")
-
-    if search:
-        if search.lower() == "3d":
-            movie_list = Movie.objects.filter(formats__name="3d").order_by(order_by)
-        else:
-            movie_list = Movie.objects.filter(title__icontains=search).order_by(order_by)
-    else:
-        movie_list = Movie.objects.order_by(order_by)
-
-    if movie_format_filter:
-        movie_list = Movie.objects.filter(formats__name=movie_format_filter).order_by(order_by)
-
-    return movie_list, search, sort, sort_arrow
-
-
-def get_random_movie():
-    max_id = Movie.objects.all().aggregate(max_id=Max("id"))["max_id"]
-    while True:
-        pk = random.randint(1, max_id)
-        random_movie = Movie.objects.filter(pk=pk).first()
-        if random_movie:
-            return random_movie
 
 
 def home(request):
