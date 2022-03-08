@@ -1,5 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import render
+from django.shortcuts import redirect
 
 from movies.management.commands.functions import *
 from movies.models import Movie
@@ -120,15 +121,7 @@ def years(request):
 
 
 def rand_movie(request):
-    sort = request.GET.get("sort")
-    movie_list = [get_random_movie()]
-    breadcrumb = ""
-    sort_label = "Alphabetical"
-
-    return render(request, "movie_grid.html", {"movie_list": movie_list,
-                                               "breadcrumb": breadcrumb,
-                                               "sort": sort,
-                                               "sort_label": sort_label})
+    return redirect(f"/movie/{get_random_movie().themoviedb_id}")
 
 
 def ind_movie(request, tmdb_id):
