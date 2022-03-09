@@ -86,20 +86,16 @@ def genres(request):
     # ["Action", "Romance", ...]
     all_genres = []
     for movie in movie_list:
-        genre_list = json.loads(movie.genres)
-        for g in genre_list:
-            all_genres.append(g["name"])
+        for genre in movie.genre_data:
+            all_genres.append(genre["name"])
     all_genres = list(set(all_genres))
+    all_genres.sort()
 
     # [["Genre 1", Movie A], ["Genre 2", Movie A] ...]
     movie_list_w_genres = []
-
     for movie in movie_list:
-        genre_list = json.loads(movie.genres)
-        for g in genre_list:
-            movie_list_w_genres.append([g["name"], movie])
-
-    all_genres.sort()
+        for genre in movie.genre_data:
+            movie_list_w_genres.append([genre["name"], movie])
 
     return render(request, "genres.html", {"movie_list": movie_list_w_genres,
                                            "all_genres": all_genres,

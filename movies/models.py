@@ -11,7 +11,7 @@ class Movie(models.Model):
     poster_path = models.CharField(max_length=300)
     formats = models.ManyToManyField("Format", default=None, blank=True)
     comments = models.CharField(max_length=300, blank=True, null=True)
-    genres = models.TextField(blank=True, null=True)
+    genre_data = models.JSONField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     letterboxd_url_slug = models.CharField(max_length=300, blank=True, null=True)

@@ -2,6 +2,13 @@
 {% block content %}
 {%load static%}
 <div class="row">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+      </ol>
+    </nav>
+</div>
+<div class="row">
   <p>
 {%for genre in all_genres%}
     <a href="#{{genre}}" class="btn btn-primary genre_button" role="button">{{genre}}</a>

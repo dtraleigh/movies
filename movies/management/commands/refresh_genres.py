@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from movies.models import *
-from movies.management.commands.functions import *
+from movies.management.commands.functions import query_tmdb
 
 
 class Command(BaseCommand):
@@ -10,5 +10,10 @@ class Command(BaseCommand):
 
         for movie in all_movies:
             tmdb_json = query_tmdb(movie.themoviedb_id)
-            movie.genres = str(tmdb_json["genres"]).replace("\'", "\"")
-            movie.save()
+            try:
+                movie.genre_data = tmdb_json["genres"]
+                movie.save()
+            except Exception as e:
+                print(e)
+                print(f"Double check {movie}")
+
