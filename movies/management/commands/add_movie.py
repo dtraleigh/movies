@@ -59,7 +59,7 @@ class Command(BaseCommand):
                                          themoviedb_id=themoviedb_id,
                                          imdb_id=imdb_id,
                                          poster_path=poster,
-                                         genres=genres,
+                                         genre_data=genres,
                                          letterboxd_url_slug=letterboxd_url_slug)
         for f in formats_split:
             new_movie.formats.add(Format.objects.get(name=f))
