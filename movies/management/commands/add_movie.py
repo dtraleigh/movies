@@ -47,7 +47,7 @@ class Command(BaseCommand):
                 year = tmdb_json[search_results][0]["release_date"].split("-")[0]
                 poster = tmdb_json[search_results][0]["poster_path"]
                 themoviedb_id = tmdb_json[search_results][0]["id"]
-                genres = str(tmdb_info["genres"]).replace("\'", "\"")
+                genres = tmdb_info["genres"]
                 letterboxd_url_slug = letterboxd_slug
             except IndexError:
                 print(f"No results for {imdb_id}")
